@@ -1,7 +1,5 @@
-/**
- * @thanks to utakata: https://dwango.slack.com/archives/C22S38FUG/p1648621620992489?thread_ts=1648620688.632749&cid=C22S38FUG
- * App設定ここから https://api.slack.com/apps?new_app=1
- */
+// @thanks to utakata: https://dwango.slack.com/archives/C22S38FUG/p1648621620992489?thread_ts=1648620688.632749&cid=C22S38FUG
+
 function main() {
   // 24時間以内に受診したメールを検索
   // バッチ処理の実行時間が最大1時間ブレるので、1時間の幅を持たせて25時間
@@ -23,7 +21,7 @@ function main() {
     let timeThreshold = nowUnixTimeSec - mailSearchLimitSec
 
     let findedThreads = GmailApp.search(
-      "subject:([SPSマルチ決済] 障害通知-購入結果通知)OR(簡易継続課金の退会処理報告) after:" + timeThreshold.toString(),
+      "!label:メンダコ無視 subject:([SPSマルチ決済] 障害通知-購入結果通知)OR(簡易継続課金の退会処理報告) after:" + timeThreshold.toString(),
       i * chunkSize, chunkSize
     )
 
@@ -42,8 +40,6 @@ function main() {
     for (mail of targetMails) {
       callSlackApi('*' + mail.title + '*' + '\n```\n' + mail.body + '\n```')
     }
-  } else {
-    callSlackApi(`確認しときたいメールはなかったよ`)
   }
 }
 
