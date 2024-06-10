@@ -21,7 +21,7 @@ function main() {
     let timeThreshold = nowUnixTimeSec - mailSearchLimitSec
 
     let findedThreads = GmailApp.search(
-      "!label:メンダコ無視 subject:([SPSマルチ決済] 障害通知-購入結果通知)OR(簡易継続課金の退会処理報告) after:" + timeThreshold.toString(),
+      "!list:(<p-nicovideo-sps.dwango.co.jp>) !label:メンダコ無視 subject:([SPSマルチ決済] 障害通知-購入結果通知)OR(簡易継続課金の退会処理報告) after:" + timeThreshold.toString(),
       i * chunkSize, chunkSize
     )
 
@@ -51,7 +51,7 @@ function callSlackApi(message) {
   // incoming webhook でSlackPOST
   const response = UrlFetchApp.fetch(
     // `https://hooks.slack.com/services/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`, // テスト用：#times_airos
-    'https://hooks.slack.com/services/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', // 運用用：#ch_payment_kane
+    'https://hooks.slack.com/services/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', // 運用用：#ch_payment_kane
     {
       method: "post",
       contentType: "application/json",
